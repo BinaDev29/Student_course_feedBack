@@ -1,0 +1,520 @@
+/* style.css */
+
+/* አጠቃላይ የሰውነት ቅጦች */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box; /* የፓዲንግ እና የቦርደር መጠኖች በስፋት እና ቁመት ውስጥ እንዲካተቱ */
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 80px 20px 60px; /* የላይኛው ህዳግ ቋሚውን የዳሰሳ አሞሌ ግምት ውስጥ ያስገባል, የታችኛው ደግሞ የግርጌ ማስታወሻውን ቦታ ይሰጣል */
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+/* የዳሰሳ አሞሌ ቅጦች */
+.navbar {
+    background-color: #007bff; /* ዋና ሰማያዊ ቀለም */
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed; /* ከላይ እንዲጣበቅ */
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    font-size: 24px; /* የብራንድ ጽሑፍን መጠን ጨምሯል */
+    font-weight: bold;
+}
+
+.navbar-logo {
+    height: 35px; /* የሎጎውን ቁመት ጨምሯል */
+    margin-right: 10px;
+}
+
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center; /* በአቀባዊ መሃል ላይ እንዲሆኑ */
+}
+
+.nav-item {
+    margin-left: 25px; /* በዳሰሳ ንጥሎች መካከል ያለውን ክፍተት ጨምሯል */
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 17px; /* የናቭ አገናኞችን የቅርጸ ቁምፊ መጠን ጨምሯል */
+    padding: 10px 15px; /* የአገናኞችን የፓዲንግ መጠን ጨምሯል */
+    border-radius: 6px; /* የአገናኞችን የቦርደር ራዲየስ ጨምሯል */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: block; /* ለትልቅ የንክኪ ቦታ */
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ddd;
+}
+
+/* የሞባይል ምናሌ ቁልፍ */
+.mobile-menu-button {
+    display: none; /* በነባሪነት ተደብቋል */
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px; /* የሃምበርገር አዶ መጠን ጨምሯል */
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+/* የሞባይል ምናሌ ቅጦች (በነባሪነት ተደብቋል) */
+.navbar-nav.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px; /* ከናቭ ባር በታች እንዲታይ */
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 123, 255, 0.9); /* ትንሽ ግልጽነት ያለው */
+    align-items: stretch; /* ሙሉ ስፋት እንዲይዙ */
+    z-index: 10;
+}
+
+.navbar-nav.open .nav-item {
+    margin-left: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.navbar-nav.open .nav-item:last-child {
+    border-bottom: none;
+}
+
+.navbar-nav.open .nav-link {
+    padding: 15px;
+    text-align: center;
+}
+
+/* የግርጌ ማስታወሻ ቅጦች */
+.footer {
+    background-color: #343a40; /* ጥቁር ግራጫ ቀለም */
+    color: white;
+    text-align: center;
+    padding: 15px 0; /* የላይ እና የታች ፓዲንግ ጨምሯል */
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 0;
+}
+
+/* ምላሽ ሰጪ ንድፍ */
+@media (max-width: 768px) {
+    .navbar-nav {
+        display: none; /* በትንንሽ ስክሪኖች ላይ ዋናውን ምናሌ ደብቅ */
+    }
+    .mobile-menu-button {
+        display: block; /* በትንንሽ ስክሪኖች ላይ የሞባይል ምናሌ ቁልፍን አሳይ */
+    }
+    .nav-item {
+        margin-left: 0; /* ለሞባይል ምናሌ ምንም የግራ ህዳግ አያስፈልግም */
+    }
+}
+
+/* ለwelcome message እና features ያሉ ቅጦች (እንደ አስፈላጊነቱ ያስተካክሉ) */
+.welcome-message {
+    text-align: center;
+    padding: 100px 20px; /* የላይ ፓዲንግ ጨምሯል */
+    color: black; /* እንደ አስፈላጊነቱ */
+    margin-top: 60px; /* ከቋሚው ናቭ ባር በታች እንዲታይ */
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.welcome-message h1 {
+    font-size: 3rem; /* የርዕሱን መጠን ጨምሯል */
+    margin-bottom: 25px;
+}
+
+.welcome-message p {
+    font-size: 1.2rem; /* የ पैराग्राफን የቅርጸ ቁምፊ መጠን ጨምሯል */
+    line-height: 1.8;
+}
+
+.features {
+    margin-top: 30px;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* የንጥል ዝቅተኛ ስፋት ጨምሯል */
+    gap: 25px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1080px; /* ከፍተኛውን ስፋት ጨምሯል */
+}
+
+.feature-item {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.feature-item h3 {
+    color: #007bff;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.feature-item p {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* ለሙሉ ስክሪን ገጾች (እንደ አስፈላጊነቱ ያስተካክሉ) */
+.full-screen-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.full-screen-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.full-screen-container h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 2.5rem;
+}
+
+/* ለእውቂያ እና ስለ እኛ ገጽ የነበሩ ቅጦች (እዚህም ሊኖሩ ይችላሉ) */
+.contact-info {
+    margin-bottom: 30px;
+    color: #555;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.contact-info p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+.contact-info strong {
+    font-weight: bold;
+    color: #333;
+}
+
+.contact-form {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+}
+
+.contact-form h3 {
+    color: #007bff;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: calc(100% - 16px);
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+.about-content {
+    line-height: 1.8;
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 30px;
+    text-align: center;
+    max-width: 960px;
+}
+
+.about-content p {
+    margin-bottom: 15px;
+}
+
+.mission-vision {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 960px;
+}
+
+.mission,
+.vision {
+    flex: 1;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    text-align: center;
+}
+
+.mission h3,
+.vision h3 {
+    color: #007bff;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+/* ምላሽ ሰጪ ንድፍ ለሙሉ ስክሪን ገጾች */
+@media (max-width: 768px) {
+    .mission-vision {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+/* ለግምገማ ገጽ የተወሰኑ ቅጦች */
+.feedback-container {
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin-top: 80px; /* ከቋሚው የዳሰሳ አሞሌ በታች ቦታ ለመስጠት */
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 960px;
+}
+
+.feedback-title {
+    font-size: 2.5rem;
+    color: #007bff;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#feedback-form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px;
+    box-sizing: border-box;
+}
+
+.rating-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.rating-group label {
+    font-size: 3rem;
+    color: #ccc;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.2s ease;
+}
+
+.rating-group input:checked + label,
+.rating-group label:hover {
+    color: #ffc107;
+}
+
+.form-btn {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.form-btn:hover {
+    background-color: #218838;
+}
+
+#feedback-message {
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.error-message {
+    color: #dc3545;
+}
+
+.success-message {
+    color: #28a745;
+}
+
+/* የእይታ ግብረመልስ ታሪክ ገጽ ቅጦች */
+.feedback-history-container {
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin-top: 80px; /* ከቋሚው የዳሰሳ አሞሌ በታች ቦታ ለመስጠት */
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 960px;
+}
+
+.feedback-history-title {
+    font-size: 2.5rem;
+    color: #007bff;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.feedback-list {
+    list-style: none;
+    padding: 0;
+}
+
+.feedback-item {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    border-left: 5px solid #007bff; /* ለእያንዳንዱ ግብረመልስ ንጥል አመልካች */
+}
+
+.feedback-item h4 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.feedback-item p {
+    color: #666;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.feedback-item .rating {
+    color: #ffc107; /* ለደረጃ ወርቃማ ቀለም */
+    font-size: 1.2rem;
+}
+
+.feedback-item .date {
+    color: #999;
+    font-size: 0.9rem;
+}
+
+/* ምላሽ ሰጪ ንድፍ ለግምገማ እና የእይታ ታሪክ ገጾች */
+@media (max-width: 768px) {
+    .feedback-container,
+    .feedback-history-container {
+        margin-top: 60px; /* ለሞባይል እይታ የላይኛውን ህዳግ አስተካክል */
+        padding: 15px;
+    }
+
+    .feedback-title,
+    .feedback-history-title {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .feedback-item {
+        padding: 15px;
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+    }
+
+    .feedback-item h4 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+
+    .rating-group label {
+        font-size: 2.5rem;
+        padding: 0.3rem;
+    }
+}

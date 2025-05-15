@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback History</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+        /* Feedback History Page Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 960px;
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            background-color: #007bff; /* ዋና ሰማያዊ ቀለም */
+            color: white;
+            padding: 15px 0;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 6px;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+
+        .navbar-logo {
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .navbar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0 20px 0 0;
+            display: flex;
+        }
+
+        .nav-item {
+            margin-left: 20px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #ddd;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .feedback-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feedback-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+
+        .feedback-item h3 {
+            color: #555;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        .feedback-details {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .feedback-details strong {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .rating {
+            color: #ffc107;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #343a40; /* ጥቁር ግራጫ ቀለም */
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            position: sticky;
+            bottom: 0;
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+            margin-right: 10px;
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            background-color: #007bff;
+            z-index: 10;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-nav.open {
+            display: block;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mobile-nav li {
+            padding: 10px 0;
+            border-bottom: 1px solid #0056b3;
+        }
+
+        .mobile-nav li:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            padding: 5px 0;
+        }
+
+        .mobile-nav a:hover {
+            color: #ddd;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar-nav {
+                display: none;
+            }
+
+            .mobile-menu-button {
+                display: block;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const yearSpan = document.getElementById('year');
+            const feedbackList = document.querySelector('.feedback-list');
+            const mobileMenuButton = document.querySelector('.mobile-menu-button');
+            const mobileNav = document.createElement('div');
+            mobileNav.className = 'mobile-nav';
+            mobileNav.innerHTML = `
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="student_dashboard.html">Dashboard</a></li>
+                    <li><a href="give_feedback.html">Give Feedback</a></li>
+                    <li><a href="view_feedback_history.html" class="active">Feedback History</a></li>
+                    <li><a href="#" id="mobile-logout">Logout</a></li>
+                </ul>
+            `;
+            document.body.insertBefore(mobileNav, document.querySelector('.container'));
+
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileNav.classList.toggle('open');
+                });
+            }
+
+            const mobileLogoutButton = document.getElementById('mobile-logout');
+            if (mobileLogoutButton) {
+                mobileLogoutButton.addEventListener('click', () => {
+                    alert('Logout clicked (Replace with real logout!)');
+                    window.location.href = 'index.html';
+                });
+            }
+
+            const logoutButton = document.getElementById('logout');
+            if (logoutButton) {
+                logoutButton.addEventListener('click', () => {
+                    alert('Logout clicked (Replace with real logout!)');
+                    window.location.href = 'index.html';
+                });
+            }
+
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+
+            // በምሳሌነት የግብረ መልስ ታሪክ መረጃ
+            const feedbackHistory = [
+                {
+                    course: "Web Development Fundamentals",
+                    date: "2025-05-10",
+                    rating: 5,
+                    comments: "Excellent course! The instructor was very knowledgeable.",
+                },
+                {
+                    course: "Introduction to Programming",
+                    date: "2025-05-05",
+                    rating: 4,
+                    comments: "Good introduction to programming concepts.",
+                },
+                {
+                    course: "Data Structures and Algorithms",
+                    date: "2025-04-28",
+                    rating: 3,
+                    comments: "The pace was a bit fast, but overall informative.",
+                },
+            ];
+
+            if (feedbackList && feedbackHistory) {
+                feedbackHistory.forEach((feedback) => {
+                    const listItem = document.createElement("li");
+                    listItem.className = "feedback-item";
+                    listItem.innerHTML = `
+                        <h3>${feedback.course}</h3>
+                        <div class="feedback-details">
+                            <strong>Date:</strong> ${feedback.date}<br>
+                            <strong>Rating:</strong> <span class="rating">${"★".repeat(feedback.rating)}</span><br>
+                            <strong>Comments:</strong> ${feedback.comments}
+                        </div>
+                    `;
+                    feedbackList.appendChild(listItem);
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <img src="../img/logo.png" alt="Logo" class="navbar-logo" />
+                Student Feedback System
+            </div>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="student_dashboard.html" class="nav-link">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a href="give_feedback.html" class="nav-link">Give Feedback</a>
+                </li>
+                <li class="nav-item">
+                    <a href="view_feedback_history.html" class="nav-link active">Feedback History</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" id="logout">Logout</a>
+                </li>
+            </ul>
+            <button class="mobile-menu-button">☰</button>
+        </nav>
+
+        <h2>Feedback History</h2>
+        <ul class="feedback-list">
+            </ul>
+
+        <footer class="footer">
+            <p>&copy; <span id="year">2025</span> Student Feedback System</p>
+        </footer>
+    </div>
+    <script src="../js/script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Feedback System - Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      /* Dashboard Specific Styles */
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 960px;
+        margin: 20px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar {
+        background-color: #007bff; /* ዋና ሰማያዊ ቀለም */
+        color: white;
+        padding: 15px 0;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 6px;
+      }
+
+      .navbar-brand {
+        display: flex;
+        align-items: center;
+        font-size: 22px;
+        font-weight: bold;
+        margin-left: 20px;
+      }
+
+      .navbar-logo {
+        height: 30px;
+        margin-right: 10px;
+      }
+
+      .navbar-nav {
+        list-style: none;
+        padding: 0;
+        margin: 0 20px 0 0;
+        display: flex;
+      }
+
+      .nav-item {
+        margin-left: 20px;
+      }
+
+      .nav-link {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        transition: color 0.3s ease;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        color: #ddd;
+      }
+
+      .dashboard-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      #dashboard {
+        background-color: #f9f9f9;
+        padding: 25px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      }
+
+      #dashboard h2 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .courses-heading {
+        font-size: 1.5rem;
+        color: #555;
+        margin-bottom: 10px;
+      }
+
+      .course-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .course-list li {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      .course-list li:last-child {
+        border-bottom: none;
+      }
+
+      .dashboard-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-primary {
+        background-color: #007bff; /* ዋና ሰማያዊ ቀለም */
+      }
+
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+
+      .btn-secondary {
+        background-color: #6c757d; /* ግራጫ ቀለም */
+      }
+
+      .btn-secondary:hover {
+        background-color: #545b62;
+      }
+
+      .feedback-container {
+        padding: 2rem 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      #feedback-form {
+        background-color: #ffffff;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+        box-sizing: border-box;
+      }
+
+      .feedback-title {
+        font-size: 2rem;
+        color: #343a40;
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #343a40;
+      }
+
+      .form-group select,
+      .form-group textarea {
+        width: calc(100% - 12px);
+        padding: 0.75rem;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        transition: border-color 0.2s ease;
+        box-sizing: border-box;
+      }
+
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+      }
+
+      .rating-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .rating-group input {
+        display: none;
+      }
+
+      .rating-group label {
+        font-size: 2rem;
+        color: #ccc;
+        cursor: pointer;
+        padding: 0.25rem;
+        transition: color 0.2s ease;
+      }
+
+      .rating-group label:hover,
+      .rating-group label:focus,
+      .rating-group input:checked + label {
+        color: #ffc107;
+      }
+
+      .form-btn {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 1rem;
+        background-color: #28a745; /* ስኬታማ አረንጓዴ ቀለም */
+        color: #ffffff;
+        border: none;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+      }
+
+      .form-btn:hover {
+        background-color: #218838;
+      }
+
+      #feedback-message {
+        margin-top: 1rem;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      /* Footer */
+      .footer {
+        background-color: #343a40; /* ጥቁር ግራጫ ቀለም */
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        width: 100%;
+        position: sticky;
+        bottom: 0;
+      }
+
+      /* Mobile Menu Button */
+      .mobile-menu-button {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 10px;
+        margin-right: 10px;
+      }
+
+      /* Mobile Navigation */
+      .mobile-nav {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #007bff;
+        z-index: 10;
+        padding: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .mobile-nav.open {
+        display: block;
+      }
+
+      .mobile-nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .mobile-nav li {
+        padding: 10px 0;
+        border-bottom: 1px solid #0056b3;
+      }
+
+      .mobile-nav li:last-child {
+        border-bottom: none;
+      }
+
+      .mobile-nav a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+        padding: 5px 0;
+      }
+
+      .mobile-nav a:hover {
+        color: #ddd;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .navbar-nav {
+          display: none;
+        }
+        .mobile-menu-button {
+          display: block;
+        }
+        .dashboard-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .dashboard-actions a {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const logoutButton = document.getElementById("logout");
+        const yearSpan = document.getElementById("year");
+        const courseList = document.querySelector(".course-list");
+        const dashboardSection = document.getElementById("dashboard");
+        const mobileMenuButton = document.querySelector(".mobile-menu-button");
+        const mobileNav = document.createElement("div");
+        mobileNav.className = "mobile-nav";
+        mobileNav.innerHTML = `
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="student_dashboard.html" class="active">Dashboard</a></li>
+                    <li><a href="give_feedback.html">Give Feedback</a></li>
+                    <li><a href="view_feedback_history.html">Feedback History</a></li>
+                    <li><a href="#" id="mobile-logout">Logout</a></li>
+                </ul>
+            `;
+        document.body.insertBefore(
+          mobileNav,
+          document.querySelector(".container")
+        );
+
+        if (mobileMenuButton) {
+          mobileMenuButton.addEventListener("click", () => {
+            mobileNav.classList.toggle("open");
+          });
+        }
+
+        const mobileLogoutButton = document.getElementById("mobile-logout");
+        if (mobileLogoutButton) {
+          mobileLogoutButton.addEventListener("click", () => {
+            alert("Logout clicked (Replace with real logout!)");
+            window.location.href = "index.html";
+          });
+        }
+
+        if (logoutButton) {
+          logoutButton.addEventListener("click", () => {
+            alert("Logout clicked (Replace with real logout!)");
+            window.location.href = "index.html";
+          });
+        }
+
+        if (yearSpan) {
+          yearSpan.textContent = new Date().getFullYear();
+        }
+
+        const coursesData = [
+          { name: "Introduction to Programming", instructor: "Dr. Smith" },
+          { name: "Web Development Fundamentals", instructor: "Ms. Johnson" },
+          {
+            name: "Data Structures and Algorithms",
+            instructor: "Prof. Williams",
+          },
+        ];
+
+        if (courseList && coursesData) {
+          courseList.innerHTML = coursesData
+            .map((course) => `<li>${course.name} - ${course.instructor}</li>`)
+            .join("");
+        }
+
+        // "Give Feedback" የሚለውን ክፍል ወደ ዳሽቦርድ መጨመር
+        const feedbackSection = document.createElement("section");
+        feedbackSection.className = "feedback-container";
+        feedbackSection.innerHTML = `
+                <div id="feedback-form">
+                    <h2 class="feedback-title">Give Feedback</h2>
+                    <form id="giveFeedbackForm">
+                        <div class="form-group">
+                            <label for="course">Select Course:</label>
+                            <select id="course" name="course" required>
+                                <option value="">-- Select --</option>
+                                ${coursesData
+                                  .map(
+                                    (course) =>
+                                      `<option value="${course.name}">${course.name}</option>`
+                                  )
+                                  .join("")}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="rating">Rating:</label>
+                            <div class="rating-group">
+                                <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+                                <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                                <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                                <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                                <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="comments">Comments:</label>
+                            <textarea id="comments" name="comments" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="form-btn">Submit Feedback</button>
+                        <div id="feedback-message" class="hidden"></div>
+                    </form>
+                </div>
+            `;
+
+        if (dashboardSection && dashboardSection.parentNode) {
+          dashboardSection.parentNode.insertBefore(
+            feedbackSection,
+            dashboardSection.nextSibling
+          );
+
+          const giveFeedbackForm = document.getElementById("giveFeedbackForm");
+          const feedbackMessage = document.getElementById("feedback-message");
+
+          if (giveFeedbackForm) {
+            giveFeedbackForm.addEventListener("submit", (event) => {
+              event.preventDefault();
+              const selectedCourse = document.getElementById("course").value;
+              const rating = document.querySelector(
+                'input[name="rating"]:checked'
+              );
+              const comments = document.getElementById("comments").value;
+
+              if (selectedCourse && rating && comments) {
+                const message = `Feedback submitted for ${selectedCourse} with rating ${rating.value}: ${comments}`;
+                feedbackMessage.textContent = message;
+                feedbackMessage.className = "suggestion-message";
+                feedbackMessage.classList.remove("hidden");
+                giveFeedbackForm.reset(); // ቅጹን ያጸዳል
+                setTimeout(() => {
+                  feedbackMessage.classList.add("hidden");
+                  feedbackMessage.textContent = "";
+                  feedbackMessage.className = "hidden";
+                }, 3000); // ከ 3 ሰከንድ በኋላ መልዕክቱን ደብቅ
+              } else {
+                feedbackMessage.textContent =
+                  "Please select a course, rating, and enter comments.";
+                feedbackMessage.className = "error-message";
+                feedbackMessage.classList.remove("hidden");
+              }
+            });
+          }
+        }
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <nav class="navbar">
+        <div class="navbar-brand">
+          <img src="../img/logo.png" alt="Logo" class="navbar-logo" />
+          Student Feedback System
+        </div>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="student_dashboard.html" class="nav-link active"
+              >Dashboard</a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="give_feedback.html" class="nav-link">Give Feedback</a>
+          </li>
+          <li class="nav-item">
+            <a href="view_feedback_history.html" class="nav-link"
+              >Feedback History</a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" id="logout">Logout</a>
+          </li>
+        </ul>
+        <button class="mobile-menu-button">☰</button>
+      </nav>
+
+      <main class="dashboard-container">
+        <section id="dashboard">
+          <h2>Welcome, Student!</h2>
+          <div id="courses">
+            <h3 class="courses-heading">Your Courses:</h3>
+            <ul class="course-list"></ul>
+          </div>
+          <div class="dashboard-actions">
+            <a href="give_feedback.html" class="btn btn-primary"
+              >Give Feedback</a
+            >
+            <a href="view_feedback_history.html" class="btn btn-secondary"
+              >View Feedback History</a
+            >
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>&copy; <span id="year">2025</span> Student Feedback System</p>
+      </footer>
+    </div>
+
+    <script src="../js/script.js" defer></script>
+  </body>
+</html>

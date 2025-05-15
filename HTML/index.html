@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Feedback System - Home</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        /* Home Page Specific Styles - You can keep these here or in your style.css */
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url("img/banner/b1.jpg"); /* Background image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: black; /* Default text color */
+        }
+
+        .navbar {
+            background-color: rgba(0, 123, 255, 0.7); /* Semi-transparent blue */
+            color: white;
+            height: 15vh;
+            padding: 15px 20px;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Navigation bar shadow */
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .navbar-logo {
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .mobile-menu-button {
+            display: none; /* Hidden by default */
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+            margin-right: 10px;
+        }
+
+        .navbar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-nav.open {
+            display: flex !important; /* Show menu when 'open' class is active */
+            flex-direction: column;
+            position: absolute;
+            top: 60px; /* Adjust based on navbar height */
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 123, 255, 0.9); /* Semi-transparent background */
+            align-items: stretch;
+            z-index: 10;
+        }
+
+        .navbar-nav.open .nav-item {
+            margin-left: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .navbar-nav.open .nav-item:last-child {
+            border-bottom: none;
+        }
+
+        .navbar-nav.open .nav-link {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .nav-item {
+            margin-left: 20px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #ddd;
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 80px 20px; /* Spacing from the navbar */
+            color: black;
+        }
+
+        .welcome-message h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .welcome-message p {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+            color: black;
+        }
+
+        .features {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 960px;
+        }
+
+        .feature-item {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .feature-item h3 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .feature-item p {
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            background-color: rgba(34, 34, 34, 0.8); /* Darker grey */
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar-nav {
+                display: none; /* Hide navigation links on smaller screens */
+            }
+            .mobile-menu-button {
+                display: block; /* Show hamburger button on smaller screens */
+            }
+            .welcome-message h1 {
+                font-size: 2.5rem;
+            }
+            .welcome-message p {
+                font-size: 1.2rem;
+            }
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="../img/logo.png" alt="Logo" class="navbar-logo" />
+            Student Feedback System
+        </div>
+        <button class="mobile-menu-button">☰</button>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="index.html" class="nav-link active">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="about.html" class="nav-link">About</a>
+            </li>
+            <li class="nav-item">
+                <a href="contact.html" class="nav-link">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a href="login.html" class="nav-link">Login</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="welcome-message" style="margin-top: 15vh;">
+        <h1>Welcome to Student Feedback System</h1>
+        <p>Your voice matters. Share your thoughts and help us improve!</p>
+    </div>
+
+    <div class="features">
+        <div class="feature-item">
+            <h3>Easy to Use</h3>
+            <p>Simple and intuitive interface for providing feedback.</p>
+        </div>
+        <div class="feature-item">
+            <h3>Your Voice Counts</h3>
+            <p>Share your valuable opinions and suggestions.</p>
+        </div>
+        <div class="feature-item">
+            <h3>Contribute to Improvement</h3>
+            <p>Help us enhance the learning experience for everyone.</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; <span id="year">2025</span> Student Feedback System</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const yearSpan = document.getElementById("year");
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+
+            const mobileMenuButton = document.querySelector(".mobile-menu-button");
+            const navbarNav = document.querySelector(".navbar-nav");
+
+            if (mobileMenuButton && navbarNav) {
+                mobileMenuButton.addEventListener("click", () => {
+                    navbarNav.classList.toggle("open");
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Feedback System - Login</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('../img/banner/b19.jpg'); /* የጀርባ ምስል */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); /* ግልጽነት ያለው ነጭ ጀርባ */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .password-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .show-password-btn {
+            background: none;
+            border: none;
+            color: #777;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff; /* ዋና ሰማያዊ ቀለም */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message, .suggestion-message {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .error-message {
+            color: #dc3545;
+        }
+
+        .suggestion-message {
+            color: #28a745;
+        }
+
+        .bypass-login {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .bypass-button {
+            background-color: #6c757d; /* ግራጫ ቀለም */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .bypass-button:hover {
+            background-color: #545b62;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <div class="password-input-wrapper">
+                    <input type="password" id="password" name="password" required />
+                    <button type="button" id="show-password" class="show-password-btn">
+                        👁️
+                    </button>
+                </div>
+            </div>
+            <button type="submit">Login</button>
+            <div id="login-error" class="error-message hidden"></div>
+            <div id="login-suggestion" class="suggestion-message hidden"></div>
+        </form>
+        <div class="bypass-login">
+            <button id="bypass-button">Login with Google</button>
+        </div>
+    </div>
+
+    <script>
+        const $ = (selector) => document.querySelector(selector);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = $('#loginForm');
+            const passwordInput = $('#password');
+            const showPasswordButton = $('#show-password');
+            const loginError = $('#login-error');
+            const loginSuggestion = $('#login-suggestion');
+
+            if (showPasswordButton) {
+                showPasswordButton.addEventListener('click', () => {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    showPasswordButton.textContent = type === 'password' ? '👁️' : 'Hide';
+                });
+            }
+
+            if (loginForm) {
+                loginForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    const email = $('#email').value;
+                    const password = passwordInput.value;
+
+                    if (!email || !password) {
+                        displayMessage(loginError, 'Please enter both email and password.', 'error');
+                        return;
+                    }
+
+                    // በBackend በኩል የሚረጋገጥ መረጃ (እዚህ ላይ ምሳሌ ነው)
+                    if (email === 'test@example.com' && password === 'password123') {
+                        console.log('Login Successful!');
+                        localStorage.setItem('isLoggedIn', 'true');
+                        window.location.href = 'student_dashboard.html';
+                    } else {
+                        displayMessage(loginError, 'Invalid credentials.', 'error');
+                    }
+                });
+            }
+
+            function displayMessage(element, message, type) {
+                element.textContent = message;
+                element.className = `${type}-message`;
+            }
+        });
+    </script>
+</body>
+</html>

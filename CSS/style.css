@@ -20,7 +20,7 @@ body {
     padding: 30px;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
     box-sizing: border-box;
 }
 
@@ -28,7 +28,7 @@ body {
 .navbar {
     background-color: #007bff; /* ዋና ሰማያዊ ቀለም */
     color: white;
-    padding: 15px 20px;
+    /* padding: 15px 20px; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -37,6 +37,7 @@ body {
     position: fixed; /* ከላይ እንዲጣበቅ */
     top: 0;
     left: 0;
+    /* margin-bottom: 20px; */
     z-index: 100;
 }
 
@@ -248,6 +249,7 @@ body {
     width: 100%;
     max-width: 600px;
     box-sizing: border-box;
+    box-shadow: 0px 4px 8px rgba(0,0,0.9);
 }
 
 .contact-form h3 {
@@ -275,10 +277,11 @@ body {
 .form-group textarea {
     width: calc(100% - 16px);
     padding: 12px;
-    border: 1px solid #ddd;
+    border: 2px solid ;
     border-radius: 6px;
     box-sizing: border-box;
     font-size: 1rem;
+    outline: none;
 }
 
 .form-group textarea {

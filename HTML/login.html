@@ -8,20 +8,18 @@
         /* Global Styles */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #26c5e5;
+            background: linear-gradient(#26c5e5,rgb(216, 197, 50));
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-image: url('../img/banner/b19.jpg'); /* የጀርባ ምስል */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+          
         }
 
         .container {
-            background-color: rgba(255, 255, 255, 0.9); /* ግልጽነት ያለው ነጭ ጀርባ */
+            background-color: rgba(255, 255, 255, 0.9); /* Transparent white background */
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -46,12 +44,13 @@
             font-weight: bold;
         }
 
-        input[type="email"],
+        input[type="text"], /* Email changed to text for University ID */
         input[type="password"] {
             width: calc(100% - 22px);
             padding: 10px;
-            border: 1px solid #ddd;
+            border: 2px solid #ddd;
             border-radius: 4px;
+            outline: none;
             box-sizing: border-box;
             font-size: 16px;
         }
@@ -74,7 +73,7 @@
         }
 
         button[type="submit"] {
-            background-color: #007bff; /* ዋና ሰማያዊ ቀለም */
+            background-color: #007bff; /* Primary blue color */
             color: white;
             padding: 12px 20px;
             border: none;
@@ -109,7 +108,7 @@
         }
 
         .bypass-button {
-            background-color: #6c757d; /* ግራጫ ቀለም */
+            background-color: #6c757d; /* Gray color */
             color: white;
             padding: 10px 15px;
             border: none;
@@ -137,15 +136,15 @@
         <h2>Login</h2>
         <form id="loginForm">
             <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required />
+                <label for="universityId">University ID:</label>
+                <input type="text" id="universityId" name="universityId" required pattern="DBU150[0-9]{4}" title="Please enter a valid University ID (e.g., DBU1500000)" />
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
                 <div class="password-input-wrapper">
                     <input type="password" id="password" name="password" required />
                     <button type="button" id="show-password" class="show-password-btn">
-                        👁️
+                        show👁️
                     </button>
                 </div>
             </div>
@@ -163,10 +162,10 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const loginForm = $('#loginForm');
+            const universityIdInput = $('#universityId');
             const passwordInput = $('#password');
             const showPasswordButton = $('#show-password');
             const loginError = $('#login-error');
-            const loginSuggestion = $('#login-suggestion');
 
             if (showPasswordButton) {
                 showPasswordButton.addEventListener('click', () => {
@@ -176,31 +175,71 @@
                 });
             }
 
+            function isPasswordComplex(password) {
+                const uppercaseRegex = /[A-Z]/;
+                const lowercaseRegex = /[a-z]/;
+                const numberRegex = /[0-9]/;
+                const symbolRegex = /[^\w\s]/;
+
+                return (
+                    uppercaseRegex.test(password) &&
+                    lowercaseRegex.test(password) &&
+                    numberRegex.test(password) &&
+                    symbolRegex.test(password)
+                );
+            }
+
             if (loginForm) {
                 loginForm.addEventListener('submit', (event) => {
                     event.preventDefault();
-                    const email = $('#email').value;
+                    const universityId = universityIdInput.value;
                     const password = passwordInput.value;
 
-                    if (!email || !password) {
-                        displayMessage(loginError, 'Please enter both email and password.', 'error');
-                        return;
+                    let errorMessage = '';
+                    console.log('--- Validation Started ---');
+                    console.log('University ID entered:', universityId);
+                    console.log('Password entered:', password);
+
+                    if (!universityId) {
+                        errorMessage = 'Please enter your University ID.';
+                        console.log('Validation failed: University ID is empty.');
+                    } else if (!/^DBU150[0-9]{4}$/.test(universityId)) {
+                        errorMessage = 'Invalid University ID format (e.g., DBU1500000).';
+                        console.log('Validation failed: Invalid University ID format.');
+                    } else if (!password) {
+                        errorMessage = 'Please enter your password.';
+                        console.log('Validation failed: Password is empty.');
+                    } else {
+                        const numericIdPart = parseInt(universityId.substring(6), 10); // Corrected substring index
+                        console.log('Numeric ID part:', numericIdPart);
+                        if (numericIdPart >= 0 && numericIdPart <= 9999) {
+                            if (!isPasswordComplex(password)) {
+                                errorMessage = 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one symbol.';
+                                console.log('Validation failed: Password complexity not met.');
+                            }
+                        } else {
+                            errorMessage = 'Invalid University ID or password.'; // General error for IDs outside the specific range
+                            console.log('Validation failed: University ID outside the specific range.');
+                        }
                     }
 
-                    // በBackend በኩል የሚረጋገጥ መረጃ (እዚህ ላይ ምሳሌ ነው)
-                    if (email === 'test@example.com' && password === 'password123') {
-                        console.log('Login Successful!');
+                    if (errorMessage) {
+                        displayMessage(loginError, errorMessage, 'error');
+                    } else {
+                        // If all validations pass, proceed with login
+                        console.log('Validation passed: Login Successful!');
+                        localStorage.setItem('loggedInUser', universityId);
                         localStorage.setItem('isLoggedIn', 'true');
                         window.location.href = 'student_dashboard.html';
-                    } else {
-                        displayMessage(loginError, 'Invalid credentials.', 'error');
                     }
+                    console.log('--- Validation Ended ---');
                 });
             }
 
             function displayMessage(element, message, type) {
                 element.textContent = message;
                 element.className = `${type}-message`;
+                element.classList.remove('hidden'); // Ensure the error message is visible
             }
         });
     </script>

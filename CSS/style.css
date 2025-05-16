@@ -11,6 +11,7 @@ body {
     align-items: center;
     min-height: 100vh;
     box-sizing: border-box; /* የፓዲንግ እና የቦርደር መጠኖች በስፋት እና ቁመት ውስጥ እንዲካተቱ */
+    /* padding-bottom: 50px; !* ለቋሚው የግርጌ ማስታወሻ በቂ ቦታ ይጨምሩ *! */ /* Remove this line */
 }
 
 .container {
@@ -26,7 +27,7 @@ body {
 
 /* የዳሰሳ አሞሌ ቅጦች */
 .navbar {
-    background-color: #007bff; /* ዋና ሰማያዊ ቀለም */
+    background-color:#2980B9; /* ዋና ሰማያዊ ቀለም */
     color: white;
     /* padding: 15px 20px; */
     display: flex;
@@ -68,8 +69,8 @@ body {
 .nav-link {
     color: white;
     text-decoration: none;
-    font-size: 17px; /* የናቭ አገናኞችን የቅርጸ ቁምፊ መጠን ጨምሯል */
-    padding: 10px 15px; /* የአገናኞችን የፓዲንግ መጠን ጨምሯል */
+    font-size: 15px; /* የናቭ አገናኞችን የቅርጸ ቁምፊ መጠን ጨምሯል */
+    padding: 20px 10px; /* የአገናኞችን የፓዲንግ መጠን ጨምሯል */
     border-radius: 6px; /* የአገናኞችን የቦርደር ራዲየስ ጨምሯል */
     transition: background-color 0.3s ease, color 0.3s ease;
     display: block; /* ለትልቅ የንክኪ ቦታ */
@@ -125,11 +126,11 @@ body {
     background-color: #343a40; /* ጥቁር ግራጫ ቀለም */
     color: white;
     text-align: center;
-    padding: 15px 0; /* የላይ እና የታች ፓዲንግ ጨምሯል */
+    padding: 10px 0; /* የላይ እና የታች ፓዲንግ ጨምሯል */
     width: 100%;
     box-sizing: border-box;
-    position: fixed;
-    bottom: 0;
+    /* position: fixed; */ /* Remove this line to make the footer scroll with the content */
+    /* bottom: 0; */       /* Remove this line as it's only relevant for fixed positioning */
 }
 
 /* ምላሽ ሰጪ ንድፍ */
@@ -203,6 +204,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    margin-top: 60px; /* ከቋሚው ናቭ ባር በታች እንዲታይ */
 }
 
 .full-screen-container {

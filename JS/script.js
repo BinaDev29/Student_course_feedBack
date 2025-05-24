@@ -1,40 +1,158 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // የአሁኑን ዓመት በግርጌ ላይ ማስቀመጥ
+function handleLoginRedirect(userRole) {
+    if (userRole === 'admin') {
+        window.location.href = 'view_feedback_history.html';
+    } else if (userRole === 'instructor') {
+        window.location.href = 'instructor_dashboard.html';
+    } else if (userRole === 'student') {
+        window.location.href = 'give_feedback.html';
+    } else {
+        window.location.href = 'login.html';
+    }
+}
+
+document.querySelector('.contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    let userRole = '';
+    if (username === 'admin' && password === 'admin123') {
+        userRole = 'admin';
+    } else if (username === 'instructor' && password === 'inst123') {
+        userRole = 'instructor';
+    } else if (username === 'student' && password === 'std123') {
+        userRole = 'student';
+    }
+
+    if (userRole) {
+        localStorage.setItem('userRole', userRole);
+        localStorage.setItem('loggedInUser', username);
+        handleLoginRedirect(userRole);
+    } else {
+        alert('Invalid username or password.');
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const navbarNav = document.querySelector('.navbar-nav');
+
+    if (mobileMenuButton && navbarNav) {
+        mobileMenuButton.addEventListener('click', function() {
+            navbarNav.classList.toggle('open');
+        });
+    }
+
     const yearSpan = document.getElementById('year');
     if (yearSpan) {
         yearSpan.textContent = new Date().getFullYear();
     }
 
-    // የሞባይል ምናሌ ቁልፍ ተግባር
-    const mobileMenuButton = document.querySelector('.mobile-menu-button');
-    const navbarNav = document.querySelector('.navbar-nav');
+    if (document.body.id === 'admin-dashboard-page') {
+        const totalFeedback = 150;
+        const averageRating = 4.2;
+        const newFeedback = 15;
 
-    if (mobileMenuButton && navbarNav) {
-        mobileMenuButton.addEventListener('click', () => {
-            navbarNav.classList.toggle('open'); // 'open' የሚባል CSS class በመጨመር ወይም በመቀነስ ምናሌውን ይቆጣጠራል
-        });
+        const totalFeedbackElem = document.getElementById('total-feedback');
+        if (totalFeedbackElem) totalFeedbackElem.textContent = totalFeedback;
+        const averageRatingElem = document.getElementById('average-rating');
+        if (averageRatingElem) averageRatingElem.textContent = averageRating.toFixed(1);
+        const newFeedbackElem = document.getElementById('new-feedback');
+        if (newFeedbackElem) newFeedbackElem.textContent = newFeedback;
     }
 
-    // የመውጫ ቁልፍ ተግባር (በምሳሌነት)
-    const logoutButtons = document.querySelectorAll('#logout');
+    if (document.body.id === 'instructor-dashboard-page') {
+        const totalFeedbackCount = 85;
+        const averageRatingValue = 4.5;
 
-    logoutButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            alert('Logout clicked (Replace with real logout functionality!)');
-            window.location.href = 'index.html';
-        });
-    });
+        const totalFeedbackCountElem = document.getElementById('total-feedback-count');
+        if (totalFeedbackCountElem) totalFeedbackCountElem.textContent = totalFeedbackCount;
+        const averageRatingValueElem = document.getElementById('average-rating-value');
+        if (averageRatingValueElem) averageRatingValueElem.textContent = averageRatingValue.toFixed(1);
 
-    // የትኛው የናቭ ባር ንጥል እንደነቃ ምልክት ማድረግ
-    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-    const currentPath = window.location.pathname.split('/').pop();
+        const courseList = document.getElementById('course-list');
+        if (courseList) {
+            const courses = [
+                { name: 'Introduction to Programming', feedbackCount: 30, avgRating: 4.7 },
+                { name: 'Data Structures and Algorithms', feedbackCount: 25, avgRating: 4.3 },
+                { name: 'Web Development Basics', feedbackCount: 30, avgRating: 4.8 }
+            ];
 
-    navLinks.forEach(link => {
-        const linkPath = link.getAttribute('href').split('/').pop();
-        if (linkPath === currentPath || (currentPath === 'index.html' && linkPath === '')) {
-            link.classList.add('active');
-        } else {
-            link.classList.remove('active');
+            courses.forEach(course => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <strong>${course.name}:</strong> Total Feedbacks: ${course.feedbackCount}, Average Rating: ${course.avgRating.toFixed(1)}
+                `;
+                courseList.appendChild(li);
+            });
         }
+    }
+
+    if (window.location.pathname.includes('view_feedback_history.html')) {
+        const feedbackList = document.querySelector('.feedback-list');
+        feedbackList.innerHTML = '';
+
+        const storedFeedbacks = JSON.parse(localStorage.getItem('allFeedbacks')) || [];
+
+        if (storedFeedbacks.length === 0) {
+            feedbackList.innerHTML = '<p>No feedback has been submitted yet.</p>';
+        } else {
+            storedFeedbacks.forEach(feedback => {
+                const li = document.createElement('li');
+                li.className = 'feedback-item';
+                li.innerHTML = `
+                    <h4>${feedback.course} - Rating: ${'★'.repeat(feedback.rating)}${'☆'.repeat(5 - feedback.rating)}</h4>
+                    <p>Submitted on: ${feedback.date || 'N/A'}</p>
+                    <p>${feedback.comments}</p>
+                `;
+                feedbackList.appendChild(li);
+            });
+        }
+    }
+
+    const feedbackForm = document.getElementById('feedback-form');
+    if (feedbackForm) {
+        feedbackForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const course = document.getElementById('course').value;
+            const ratingInput = document.querySelector('input[name="rating"]:checked');
+            const comments = document.getElementById('comments').value;
+            const messageDiv = document.getElementById('feedback-message');
+
+            if (course && ratingInput && comments) {
+                const loggedInUser = localStorage.getItem('loggedInUser') || 'Anonymous';
+
+                const newFeedback = {
+                    user: loggedInUser,
+                    course: course,
+                    rating: ratingInput.value,
+                    comments: comments,
+                    date: new Date().toLocaleDateString()
+                };
+
+                let existingFeedbacks = JSON.parse(localStorage.getItem('allFeedbacks')) || [];
+                existingFeedbacks.push(newFeedback);
+                localStorage.setItem('allFeedbacks', JSON.stringify(existingFeedbacks));
+
+                console.log('Feedback Submitted:', newFeedback);
+                messageDiv.textContent = 'Feedback submitted successfully! Thank you.';
+                messageDiv.style.color = 'green';
+                feedbackForm.reset();
+            } else {
+                messageDiv.textContent = 'Please fill all fields and give a rating.';
+                messageDiv.style.color = 'red';
+            }
+        });
+    }
+});
+
+document.querySelectorAll('#logout').forEach(button => {
+    button.addEventListener('click', function(event) {
+        event.preventDefault();
+        localStorage.removeItem('userRole');
+        localStorage.removeItem('loggedInUser');
+        alert('You have been logged out.');
+        window.location.href = 'login.html';
     });
 });

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - Feedback System</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <img src="../img/logo.png" alt="Logo" class="navbar-logo" />
+        Feedback System
+      </div>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item">
+          <a href="about.html" class="nav-link">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a href="contact.html" class="nav-link">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a href="login.html" class="nav-link">Login</a>
+        </li>
+        <li class="nav-item">
+          <a href="register.html" class="nav-link active">Register</a>
+        </li>
+      </ul>
+      <button class="mobile-menu-button">&#9776;</button>
+    </nav>
+
+    <main class="full-screen-page">
+      <div class="full-screen-container">
+        <h2>Register</h2>
+        <form class="contact-form">
+          <h3>Create a new account</h3>
+          <div class="form-group">
+            <label for="fullname">Full Name:</label>
+            <input type="text" id="fullname" name="fullname" required />
+          </div>
+          <div class="form-group">
+            <label for="reg-email">Email:</label>
+            <input type="email" id="reg-email" name="reg-email" required />
+          </div>
+          <div class="form-group">
+            <label for="reg-username">Username:</label>
+            <input type="text" id="reg-username" name="reg-username" required />
+          </div>
+          <div class="form-group">
+            <label for="reg-password">Password:</label>
+            <input
+              type="password"
+              id="reg-password"
+              name="reg-password"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="confirm-password">Confirm Password:</label>
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirm-password"
+              required
+            />
+          </div>
+          <button type="submit">Register</button>
+          <p style="text-align: center; margin-top: 20px; color: #555">
+            Already have an account?
+            <a href="login.html" style="color: #007bff; text-decoration: none"
+              >Login</a
+            >
+          </p>
+        </form>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>
+        &copy; <span id="year"></span> Feedback System. All rights reserved.
+      </p>
+    </footer>
+
+    <script src="../js/script.js" defer></script>
+  </body>
+</html>

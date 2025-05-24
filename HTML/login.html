@@ -1,247 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student Feedback System - Login</title>
-    <style>
-        /* Global Styles */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #26c5e5;
-            background: linear-gradient(#26c5e5,rgb(216, 197, 50));
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-          
-        }
+    <title>Login - Feedback System</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <img src="../img/logo.png" alt="Logo" class="navbar-logo" />
 
-        .container {
-            background-color: rgba(255, 255, 255, 0.9); /* Transparent white background */
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 400px;
-        }
+        Feedback System
+      </div>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item">
+          <a href="about.html" class="nav-link">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a href="contact.html" class="nav-link">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a href="login.html" class="nav-link active">Login</a>
+        </li>
+        <li class="nav-item">
+          <a href="register.html" class="nav-link">Register</a>
+        </li>
+      </ul>
+      <button class="mobile-menu-button">&#9776;</button>
+    </nav>
 
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 25px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: bold;
-        }
-
-        input[type="text"], /* Email changed to text for University ID */
-        input[type="password"] {
-            width: calc(100% - 22px);
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-            outline: none;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-
-        .password-input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .show-password-btn {
-            background: none;
-            border: none;
-            color: #777;
-            cursor: pointer;
-            position: absolute;
-            right: 10px;
-            font-size: 16px;
-            outline: none;
-        }
-
-        button[type="submit"] {
-            background-color: #007bff; /* Primary blue color */
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 18px;
-            width: 100%;
-            transition: background-color 0.3s ease;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-
-        .error-message, .suggestion-message {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
-        }
-
-        .error-message {
-            color: #dc3545;
-        }
-
-        .suggestion-message {
-            color: #28a745;
-        }
-
-        .bypass-login {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .bypass-button {
-            background-color: #6c757d; /* Gray color */
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
-
-        .bypass-button:hover {
-            background-color: #545b62;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 600px) {
-            .container {
-                margin: 20px;
-                padding: 20px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
+    <main class="full-screen-page">
+      <div class="full-screen-container">
         <h2>Login</h2>
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="universityId">University ID:</label>
-                <input type="text" id="universityId" name="universityId" required pattern="DBU150[0-9]{4}" title="Please enter a valid University ID (e.g., DBU1500000)" />
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <div class="password-input-wrapper">
-                    <input type="password" id="password" name="password" required />
-                    <button type="button" id="show-password" class="show-password-btn">
-                        show👁️
-                    </button>
-                </div>
-            </div>
-            <button type="submit">Login</button>
-            <div id="login-error" class="error-message hidden"></div>
-            <div id="login-suggestion" class="suggestion-message hidden"></div>
+        <form class="contact-form">
+          <h3>Log in to your account</h3>
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required />
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+          </div>
+          <button type="submit">Login</button>
+          <p style="text-align: center; margin-top: 20px; color: #555">
+            Don't have an account?
+            <a
+              href="register.html"
+              style="color: #007bff; text-decoration: none"
+              >Register</a
+            >
+          </p>
         </form>
-        <div class="bypass-login">
-            <button id="bypass-button">Login with Google</button>
-        </div>
-    </div>
+      </div>
+    </main>
 
-    <script>
-        const $ = (selector) => document.querySelector(selector);
+    <footer class="footer">
+      <p>
+        &copy; <span id="year"></span> Feedback System. All rights reserved.
+      </p>
+    </footer>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const loginForm = $('#loginForm');
-            const universityIdInput = $('#universityId');
-            const passwordInput = $('#password');
-            const showPasswordButton = $('#show-password');
-            const loginError = $('#login-error');
-
-            if (showPasswordButton) {
-                showPasswordButton.addEventListener('click', () => {
-                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                    passwordInput.setAttribute('type', type);
-                    showPasswordButton.textContent = type === 'password' ? '👁️' : 'Hide';
-                });
-            }
-
-            function isPasswordComplex(password) {
-                const uppercaseRegex = /[A-Z]/;
-                const lowercaseRegex = /[a-z]/;
-                const numberRegex = /[0-9]/;
-                const symbolRegex = /[^\w\s]/;
-
-                return (
-                    uppercaseRegex.test(password) &&
-                    lowercaseRegex.test(password) &&
-                    numberRegex.test(password) &&
-                    symbolRegex.test(password)
-                );
-            }
-
-            if (loginForm) {
-                loginForm.addEventListener('submit', (event) => {
-                    event.preventDefault();
-                    const universityId = universityIdInput.value;
-                    const password = passwordInput.value;
-
-                    let errorMessage = '';
-                    console.log('--- Validation Started ---');
-                    console.log('University ID entered:', universityId);
-                    console.log('Password entered:', password);
-
-                    if (!universityId) {
-                        errorMessage = 'Please enter your University ID.';
-                        console.log('Validation failed: University ID is empty.');
-                    } else if (!/^DBU150[0-9]{4}$/.test(universityId)) {
-                        errorMessage = 'Invalid University ID format (e.g., DBU1500000).';
-                        console.log('Validation failed: Invalid University ID format.');
-                    } else if (!password) {
-                        errorMessage = 'Please enter your password.';
-                        console.log('Validation failed: Password is empty.');
-                    } else {
-                        const numericIdPart = parseInt(universityId.substring(6), 10); // Corrected substring index
-                        console.log('Numeric ID part:', numericIdPart);
-                        if (numericIdPart >= 0 && numericIdPart <= 9999) {
-                            if (!isPasswordComplex(password)) {
-                                errorMessage = 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one symbol.';
-                                console.log('Validation failed: Password complexity not met.');
-                            }
-                        } else {
-                            errorMessage = 'Invalid University ID or password.'; // General error for IDs outside the specific range
-                            console.log('Validation failed: University ID outside the specific range.');
-                        }
-                    }
-
-                    if (errorMessage) {
-                        displayMessage(loginError, errorMessage, 'error');
-                    } else {
-                        // If all validations pass, proceed with login
-                        console.log('Validation passed: Login Successful!');
-                        localStorage.setItem('loggedInUser', universityId);
-                        localStorage.setItem('isLoggedIn', 'true');
-                        window.location.href = 'student_dashboard.html';
-                    }
-                    console.log('--- Validation Ended ---');
-                });
-            }
-
-            function displayMessage(element, message, type) {
-                element.textContent = message;
-                element.className = `${type}-message`;
-                element.classList.remove('hidden'); // Ensure the error message is visible
-            }
-        });
-    </script>
-</body>
+    <script src="../js/script.js" defer></script>
+  </body>
 </html>

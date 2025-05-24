@@ -1,308 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Feedback System - Give Feedback</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <style>
-        /* Give Feedback Page Styles - በአብዛኛው ከ style.css የሚመጡ ናቸው ነገር ግን ለዚህ ገጽ የተወሰኑ ካሉ እዚህ መጨመር ይቻላል */
-        .feedback-container {
-            padding: 30px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            margin-top: 100px; /* ከቋሚው የዳሰሳ አሞሌ በታች ቦታ ለመስጠት */
-            box-sizing: border-box;
-            width: 100%;
-            max-width: 960px;
-        }
-
-        .navbar{
-            height: 15vh;
-        }
-        .feedback-title {
-            font-size: 2.5rem;
-            color: #007bff;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        #feedback-form {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 700px;
-            box-sizing: border-box;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #555;
-            font-size: 1.1rem;
-        }
-
-        .form-group select,
-        .form-group textarea,
-        .form-group input[type="date"] {
-            width: calc(100% - 16px);
-            padding: 12px;
-            border: 1px solid grey;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 1rem;
-        }
-
-        .form-group select:focus,
-        .form-group textarea:focus,
-        .form-group input[type="date"]:focus {
-            outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-        }
-
-        .rating-group {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 10px;
-            margin-bottom: 15px;
-        }
-
-        .rating-group label {
-            font-size: 3rem;
-            color: rgba(0, 0, 0, 0.683);
-            cursor: pointer;
-            padding: 0.5rem;
-            transition: color 0.2s ease;
-        }
-
-        .rating-group input:checked + label,
-        .rating-group label:hover {
-            color: #ffc107;
-        }
-
-        .form-btn {
-            display: block;
-            width: 100%;
-            padding: 14px 20px;
-            background-color: #28a745;
-            color: #ffffff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-
-        .form-btn:hover {
-            background-color: #218838;
-        }
-
-        #feedback-message {
-            margin-top: 20px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .error-message {
-            color: #dc3545;
-        }
-
-        .success-message {
-            color: #28a745;
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const yearSpan = document.getElementById('year');
-            const feedbackForm = document.getElementById('giveFeedbackForm');
-            const feedbackMessage = document.getElementById('feedback-message');
-            const mobileMenuButton = document.querySelector('.mobile-menu-button');
-            const navbarNav = document.querySelector('.navbar-nav');
-            const feedbackDateInput = document.getElementById('feedbackDate'); // New date input
-
-            if (mobileMenuButton && navbarNav) {
-                mobileMenuButton.addEventListener('click', () => {
-                    navbarNav.classList.toggle('open');
-                });
-            }
-
-            const logoutButton = document.getElementById('logout');
-            if (logoutButton) {
-                logoutButton.addEventListener('click', () => {
-                    alert('Logout clicked (Replace with real logout!)');
-                    window.location.href = 'index.html';
-                });
-            }
-
-            if (yearSpan) {
-                yearSpan.textContent = new Date().getFullYear();
-            }
-
-            const coursesData = [
-                { name: "Introduction to Programming" },
-                { name: "Web Development Fundamentals" },
-                { name: "Data Structures and Algorithms" }
-            ];
-
-            const courseSelect = document.getElementById('course');
-            if (courseSelect && coursesData) {
-                coursesData.forEach(course => {
-                    const option = document.createElement('option');
-                    option.value = course.name;
-                    option.textContent = course.name;
-                    courseSelect.appendChild(option);
-                });
-            }
-
-            if (feedbackForm) {
-                feedbackForm.addEventListener('submit', (event) => {
-                    event.preventDefault();
-                    const selectedCourse = document.getElementById('course').value;
-                    const rating = document.querySelector('input[name="rating"]:checked');
-                    const comments = document.getElementById('comments').value;
-                    const loggedInUser = localStorage.getItem('loggedInUser');
-                    const feedbackDate = feedbackDateInput.value; // Get the date from the input
-
-                    if (loggedInUser) {
-                        const feedbackData = {
-                            userId: loggedInUser,
-                            course: selectedCourse,
-                            rating: rating ? rating.value : null,
-                            comments: comments,
-                            date: feedbackDate || new Date().toLocaleDateString() // Use selected date or current date as fallback
-                        };
-
-                        if (selectedCourse && feedbackData.rating && comments) {
-                            const existingFeedback = localStorage.getItem('studentFeedback');
-                            const feedbackArray = existingFeedback ? JSON.parse(existingFeedback) : [];
-                            const hasGivenFeedback = feedbackArray.some(feedback => feedback.userId === loggedInUser);
-
-                            if (!hasGivenFeedback) {
-                                feedbackArray.push(feedbackData);
-                                localStorage.setItem('studentFeedback', JSON.stringify(feedbackArray));
-
-                                const message = 'Your feedback has been submitted successfully!';
-                                feedbackMessage.textContent = message;
-                                feedbackMessage.className = 'success-message';
-                                feedbackMessage.classList.remove('hidden');
-
-                                feedbackForm.reset();
-                                setTimeout(() => {
-                                    window.location.href = 'view_feedback_history.html';
-                                }, 1500);
-                            } else {
-                                feedbackMessage.textContent = 'You have already submitted feedback.';
-                                feedbackMessage.className = 'error-message';
-                                feedbackMessage.classList.remove('hidden');
-                                feedbackForm.style.display = 'none';
-                            }
-                        } else {
-                            feedbackMessage.textContent = 'Please select a course, rating, and enter comments.';
-                            feedbackMessage.className = 'error-message';
-                            feedbackMessage.classList.remove('hidden');
-                        }
-                    } else {
-                        feedbackMessage.textContent = 'Please log in to give feedback.';
-                        feedbackMessage.className = 'error-message';
-                        feedbackMessage.classList.remove('hidden');
-                        setTimeout(() => {
-                            window.location.href = 'login.html';
-                        }, 2000);
-                    }
-                });
-
-                const ratingInputs = document.querySelectorAll('input[name="rating"]');
-                const ratingLabels = document.querySelectorAll('.rating-group label');
-
-                ratingInputs.forEach(input => {
-                    input.addEventListener('change', () => {
-                        ratingLabels.forEach(label => label.classList.remove('selected'));
-                        if (input.checked) {
-                            input.nextElementSibling.classList.add('selected');
-                        }
-                    });
-                });
-            }
-        });
-    </script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Give Feedback - Feedback System</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
     <nav class="navbar">
-        <div class="navbar-brand">
-            <img src="../img/logo.png" alt="Logo" class="navbar-logo">
-            Student Feedback System
-        </div>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a href="index.html" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item">
-                <a href="student_dashboard.html" class="nav-link">Dashboard</a>
-            </li>
-            <li class="nav-item">
-                <a href="give_feedback.html" class="nav-link active">Give Feedback</a>
-            </li>
-            <li class="nav-item">
-                <a href="view_feedback_history.html" class="nav-link">Feedback History</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" id="logout">Logout</a>
-            </li>
-        </ul>
-        <button class="mobile-menu-button">☰</button>
+      <div class="navbar-brand">
+        <img src="../img/logo.png" alt="Logo" class="navbar-logo" />
+
+        Feedback System
+      </div>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item">
+          <a href="give_feedback.html" class="nav-link active">Give Feedback</a>
+        </li>
+        <li class="nav-item">
+          <a href="view_feedback_history.html" class="nav-link"
+            >Feedback History</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="#" id="logout" class="nav-link">Logout</a>
+        </li>
+      </ul>
+      <button class="mobile-menu-button">&#9776;</button>
     </nav>
 
-    <div class="container feedback-container">
-        <h2 class="feedback-title">Give Feedback</h2>
-        <form id="giveFeedbackForm">
-            <div class="form-group">
-                <label for="course">Select Course:</label>
-                <select id="course" name="course" required>
-                    <option value="">-- Select --</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="rating">Rating:</label>
-                <div class="rating-group">
-                    <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
-                    <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
-                    <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
-                    <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
-                    <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="comments">Comments:</label>
-                <textarea id="comments" name="comments" rows="5" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="feedbackDate">Feedback Date:</label>
-                <input type="date" id="feedbackDate" name="feedbackDate" required>
-            </div>
-            <button type="submit" class="form-btn">Submit Feedback</button>
-            <div id="feedback-message" class="hidden"></div>
-        </form>
-    </div>
+    <main class="container feedback-container">
+      <h1 class="feedback-title">Give Feedback</h1>
+
+      <form id="feedback-form">
+        <div class="form-group">
+          <label for="course">Course/Subject:</label>
+          <input type="text" id="course" name="course" required />
+        </div>
+        <div class="form-group">
+          <label for="feedbackDate">Date:</label>
+          <input type="date" id="feedbackDate" name="feedbackDate" required />
+        </div>
+        <div class="form-group">
+          <label>Rate:</label>
+          <div class="rating-group">
+            <input
+              type="radio"
+              id="star5"
+              name="rating"
+              value="5"
+              required
+            /><label for="star5">★</label>
+            <input type="radio" id="star4" name="rating" value="4" /><label
+              for="star4"
+              >★</label
+            >
+            <input type="radio" id="star3" name="rating" value="3" /><label
+              for="star3"
+              >★</label
+            >
+            <input type="radio" id="star2" name="rating" value="2" /><label
+              for="star2"
+              >★</label
+            >
+            <input type="radio" id="star1" name="rating" value="1" /><label
+              for="star1"
+              >★</label
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="comments">Comments:</label>
+          <textarea id="comments" name="comments" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="form-btn">Submit Feedback</button>
+        <p id="feedback-message"></p>
+      </form>
+    </main>
 
     <footer class="footer">
-        <p>&copy; <span id="year">2025</span> Student Feedback System</p>
+      <p>
+        &copy; <span id="year"></span> Feedback System. All rights reserved.
+      </p>
     </footer>
 
     <script src="../js/script.js" defer></script>
-</body>
+  </body>
 </html>

@@ -3,79 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Student Feedback System</title>
+    <title>About Us - Feedback System</title>
     <link rel="stylesheet" href="../css/style.css">
-    <style>
-        .navbar{
-            height: 15vh;
-        }
-        /* ምንም ልዩ የውስጥ ቅጦች አያስፈልጉም */
-    </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const yearSpan = document.getElementById('year');
-            if (yearSpan) {
-                yearSpan.textContent = new Date().getFullYear();
-            }
-        });
-    </script>
 </head>
-<body class="full-screen-page">
+<body>
     <nav class="navbar">
         <div class="navbar-brand">
             <img src="../img/logo.png" alt="Logo" class="navbar-logo">
-            Student Feedback System
+            Feedback System
         </div>
         <ul class="navbar-nav">
-            <li class="nav-item">
-                <a href="index.html" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item">
-                <a href="student_dashboard.html" class="nav-link">Dashboard</a>
-            </li>
-            <li class="nav-item">
-                <a href="give_feedback.html" class="nav-link">Give Feedback</a>
-            </li>
-            <li class="nav-item">
-                <a href="view_feedback_history.html" class="nav-link">Feedback History</a>
-            </li>
-            <li class="nav-item">
-                <a href="about.html" class="nav-link active">About Us</a>
-            </li>
-            <li class="nav-item">
-                <a href="contact.html" class="nav-link">Contact Us</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" id="logout">Logout</a>
-            </li>
+            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="about.html" class="nav-link active">About Us</a></li>
+            <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="login.html" class="nav-link">Login</a></li>
+            <li class="nav-item"><a href="register.html" class="nav-link">Register</a></li>
         </ul>
-        <button class="mobile-menu-button">☰</button>
+        <button class="mobile-menu-button">&#9776;</button>
     </nav>
 
-    <div class="full-screen-container">
-        <h2>About Student Feedback System</h2>
-        <div class="about-content">
-            <p>The Student Feedback System is designed to provide an easy and efficient way for students to share their opinions and suggestions about their courses and instructors. Our goal is to foster a continuous improvement cycle in education by making student feedback accessible and actionable.</p>
-            <p>We believe that student feedback is crucial for enhancing the quality of teaching and the overall learning experience. By providing a platform for open communication, we aim to empower students and support educators in creating a more engaging and effective educational environment.</p>
-        </div>
+    <main class="full-screen-page">
+        <div class="full-screen-container">
+            <h2>About Us</h2>
+            <section class="about-content">
+                <p>
+                    The Feedback System is a modern platform designed to improve educational quality and create an efficient communication channel within our university. It's a system where students, instructors, and administrators can freely exchange ideas and feedback to enhance the university's educational and service quality.
+                </p>
+                <p>
+                    Our main goal is to foster transparency, accountability, and continuous improvement. By valuing every stakeholder's voice, we believe we can create a better learning environment for everyone.
+                </p>
+            </section>
 
-        <div class="mission-vision">
-            <div class="mission">
-                <h3>Our Mission</h3>
-                <p>To empower students to voice their feedback and to provide educators with valuable insights for continuous improvement.</p>
-            </div>
-            <div class="vision">
-                <h3>Our Vision</h3>
-                <p>To be the leading platform for student feedback, contributing to a more dynamic and responsive educational system.</p>
-            </div>
+            <section class="mission-vision">
+                <div class="mission">
+                    <h3>Our Mission</h3>
+                    <p>
+                        To enhance the university's educational quality and create an efficient feedback mechanism that involves all stakeholders.
+                    </p>
+                </div>
+                <div class="vision">
+                    <h3>Our Vision</h3>
+                    <p>
+                        To create a university community where every voice is heard, opinions are valued, and continuous improvement is implemented.
+                    </p>
+                </div>
+            </section>
         </div>
-
-        <p class="about-content">Thank you for being a part of the Student Feedback System!</p>
-    </div>
+    </main>
 
     <footer class="footer">
-        <p>&copy; <span id="year">2025</span> Student Feedback System</p>
+        <p>&copy; <span id="year"></span> Feedback System. All rights reserved.</p>
     </footer>
+
     <script src="../js/script.js" defer></script>
 </body>
 </html>

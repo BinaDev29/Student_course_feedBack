@@ -3,364 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Student Feedback System</title>
+    <title>Admin Dashboard - Feedback System</title>
     <link rel="stylesheet" href="../css/style.css">
-    <style>
-        /* Admin Dashboard Styles */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 20px;
-            padding: 30px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar {
-            background-color: #28a745; /* የአስተዳዳሪ ዋና አረንጓዴ ቀለም */
-            color: white;
-            padding: 15px 0;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: 6px;
-        }
-
-        .navbar-brand {
-            display: flex;
-            align-items: center;
-            font-size: 22px;
-            font-weight: bold;
-            margin-left: 20px;
-        }
-
-        .navbar-logo {
-            height: 30px;
-            margin-right: 10px;
-        }
-
-        .navbar-nav {
-            list-style: none;
-            padding: 0;
-            margin: 0 20px 0 0;
-            display: flex;
-        }
-
-        .nav-item {
-            margin-left: 20px;
-        }
-
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            transition: color 0.3s ease;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: #ddd;
-        }
-
-        .admin-actions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .admin-card {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 6px;
-            border: 1px solid #eee;
-            text-align: center;
-        }
-
-        .admin-card h3 {
-            color: #333;
-            margin-top: 0;
-            margin-bottom: 10px;
-        }
-
-        .admin-card p {
-            color: #777;
-            margin-bottom: 15px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            text-decoration: none;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-primary {
-            background-color: #007bff; /* ሰማያዊ */
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-
-        .btn-info {
-            background-color: #17a2b8; /* አረንጓዴ-ሰማያዊ */
-        }
-
-        .btn-info:hover {
-            background-color: #138496;
-        }
-
-        .feedback-overview {
-            margin-bottom: 20px;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 6px;
-            border: 1px solid #eee;
-        }
-
-        .feedback-overview h2 {
-            color: #333;
-            margin-top: 0;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .feedback-summary {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .summary-item {
-            padding: 15px;
-            background-color: #fff;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
-
-        .summary-item h4 {
-            color: #555;
-            margin-top: 0;
-            margin-bottom: 5px;
-        }
-
-        .summary-item p {
-            color: #333;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 0;
-        }
-
-        /* Footer */
-        .footer {
-            background-color: #343a40; /* ጥቁር ግራጫ ቀለም */
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            width: 100%;
-            position: sticky;
-            bottom: 0;
-        }
-
-        /* Mobile Menu Button */
-        .mobile-menu-button {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 10px;
-            margin-right: 10px;
-        }
-
-        /* Mobile Navigation */
-        .mobile-nav {
-            display: none;
-            position: absolute;
-            top: 60px;
-            left: 0;
-            width: 100%;
-            background-color: #28a745;
-            z-index: 10;
-            padding: 15px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .mobile-nav.open {
-            display: block;
-        }
-
-        .mobile-nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .mobile-nav li {
-            padding: 10px 0;
-            border-bottom: 1px solid #1e7e34;
-        }
-
-        .mobile-nav li:last-child {
-            border-bottom: none;
-        }
-
-        .mobile-nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            display: block;
-            padding: 5px 0;
-        }
-
-        .mobile-nav a:hover {
-            color: #ddd;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .navbar-nav {
-                display: none;
-            }
-            .mobile-menu-button {
-                display: block;
-            }
-            .admin-actions {
-                grid-template-columns: 1fr;
-            }
-            .feedback-summary {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const yearSpan = document.getElementById('year');
-            const mobileMenuButton = document.querySelector('.mobile-menu-button');
-            const mobileNav = document.createElement('div');
-            mobileNav.className = 'mobile-nav';
-            mobileNav.innerHTML = `
-                <ul>
-                    <li><a href="admin_dashboard.html" class="active">Dashboard</a></li>
-                    <li><a href="#">View Feedback</a></li>
-                    <li><a href="#">Manage Users</a></li>
-                    <li><a href="#">Settings</a></li>
-                    <li><a href="#" id="mobile-logout">Logout</a></li>
-                </ul>
-            `;
-            document.body.insertBefore(mobileNav, document.querySelector('.container'));
-
-            if (mobileMenuButton) {
-                mobileMenuButton.addEventListener('click', () => {
-                    mobileNav.classList.toggle('open');
-                });
-            }
-
-            const mobileLogoutButton = document.getElementById('mobile-logout');
-            if (mobileLogoutButton) {
-                mobileLogoutButton.addEventListener('click', () => {
-                    alert('Admin Logout clicked (Replace with real logout!)');
-                    window.location.href = 'index.html'; // ወደ መነሻ ገጽ ይመለሳል
-                });
-            }
-
-            const logoutButton = document.getElementById('logout');
-            if (logoutButton) {
-                logoutButton.addEventListener('click', () => {
-                    alert('Admin Logout clicked (Replace with real logout!)');
-                    window.location.href = 'index.html'; // ወደ መነሻ ገጽ ይመለሳል
-                });
-            }
-
-            if (yearSpan) {
-                yearSpan.textContent = new Date().getFullYear();
-            }
-
-            // በምሳሌነት የግብረመልስ ማጠቃለያ መረጃ (ከBackend የሚመጣ)
-            const feedbackSummaryData = {
-                totalFeedback: 150,
-                averageRating: 4.2,
-                newFeedbackLastWeek: 25
-            };
-
-            document.getElementById('total-feedback').textContent = feedbackSummaryData.totalFeedback;
-            document.getElementById('average-rating').textContent = feedbackSummaryData.averageRating.toFixed(1);
-            document.getElementById('new-feedback').textContent = feedbackSummaryData.newFeedbackLastWeek;
-        });
-    </script>
 </head>
 <body>
-    <div class="container">
-        <nav class="navbar">
-            <div class="navbar-brand">
-                <img src="../img/logo.png" alt="Admin Logo" class="navbar-logo">
-                Admin Dashboard
-            </div>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="admin_dashboard.html" class="nav-link active">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">View Feedback</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Manage Users</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Settings</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" id="logout">Logout</a>
-                </li>
-            </ul>
-            <button class="mobile-menu-button">☰</button>
-        </nav>
-
-        <h2>Admin Dashboard</h2>
-
-        <div class="admin-actions">
-            <div class="admin-card">
-                <h3>View All Feedback</h3>
-                <p>Access and review all student feedback.</p>
-                <a href="#" class="btn btn-primary">View Feedback</a>
-            </div>
-            <div class="admin-card">
-                <h3>Manage Users</h3>
-                <p>Add, edit, or delete student and admin accounts.</p>
-                <a href="#" class="btn btn-info">Manage Users</a>
-            </div>
-            <div class="admin-card">
-                <h3>System Settings</h3>
-                <p>Configure system-wide settings and preferences.</p>
-                <a href="#" class="btn btn-secondary">Settings</a>
-            </div>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="../image/logo.png" alt="Logo" class="navbar-logo">
+            Feedback System
         </div>
+        <ul class="navbar-nav">
+            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="admin_dashboard.html" class="nav-link active">Dashboard</a></li>
+            <li class="nav-item"><a href="view_feedback_history.html" class="nav-link">Feedbacks</a></li>
+            <li class="nav-item"><a href="#" id="logout" class="nav-link">Logout</a></li>
+        </ul>
+        <button class="mobile-menu-button">&#9776;</button>
+    </nav>
+
+    <main class="container">
+        <h1 style="text-align: center; color: #007bff; margin-bottom: 30px;">Admin Dashboard</h1>
+
+        <section class="admin-actions">
+            <div class="admin-card">
+                <h3>Manage Students</h3>
+                <p>View, edit, or delete student information.</p>
+                <a href="#" class="btn btn-primary">Go to Students</a>
+            </div>
+            <div class="admin-card">
+                <h3>Manage Instructors</h3>
+                <p>View, edit, or delete instructor information.</p>
+                <a href="#" class="btn btn-info">Go to Instructors</a>
+            </div>
+            <div class="admin-card">
+                <h3>Manage Courses</h3>
+                <p>Add, edit, or delete courses.</p>
+                <a href="#" class="btn btn-secondary">Go to Courses</a>
+            </div>
+        </section>
 
         <section class="feedback-overview">
             <h2>Feedback Overview</h2>
             <div class="feedback-summary">
                 <div class="summary-item">
-                    <h4>Total Feedback</h4>
+                    <h4>Total Feedbacks</h4>
                     <p id="total-feedback">0</p>
                 </div>
                 <div class="summary-item">
@@ -368,16 +54,17 @@
                     <p id="average-rating">0.0</p>
                 </div>
                 <div class="summary-item">
-                    <h4>New Feedback (Last Week)</h4>
+                    <h4>New Feedbacks (per week)</h4>
                     <p id="new-feedback">0</p>
                 </div>
             </div>
         </section>
+    </main>
 
-        <footer class="footer">
-            <p>&copy; <span id="year">2025</span> Student Feedback System</p>
-        </footer>
-    </div>
+    <footer class="footer">
+        <p>&copy; <span id="year"></span> Feedback System. All rights reserved.</p>
+    </footer>
+
     <script src="../js/script.js" defer></script>
 </body>
 </html>

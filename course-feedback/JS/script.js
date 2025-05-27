@@ -26,6 +26,7 @@ document.querySelector('.contact-form').addEventListener('submit', function(even
     }
 
     if (userRole) {
+        
         localStorage.setItem('userRole', userRole);
         localStorage.setItem('loggedInUser', username);
         handleLoginRedirect(userRole);

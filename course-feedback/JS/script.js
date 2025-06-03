@@ -31,7 +31,7 @@ document.querySelector('.contact-form').addEventListener('submit', function(even
         localStorage.setItem('loggedInUser', username);
         handleLoginRedirect(userRole);
     } else {
-        alert('Invalid username or password.');
+        // alert('Invalid username or password.');
     }
 });
 

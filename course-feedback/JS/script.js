@@ -39,9 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-<<<<<<< HEAD
-    // Mobile menu toggle
-=======
     if (userRole) {
         
         localStorage.setItem('userRole', userRole);
@@ -53,7 +50,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
->>>>>>> b38b25169cfc60dbad546e9f09b3dab25ed2af49
     const mobileMenuButton = document.querySelector('.mobile-menu-button');
     const navbarNav = document.querySelector('.navbar-nav');
     if (mobileMenuButton && navbarNav) {

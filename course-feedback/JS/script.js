@@ -10,45 +10,51 @@ function handleLoginRedirect(userRole) {
     }
 }
 
-document.querySelector('.contact-form').addEventListener('submit', function(event) {
-    event.preventDefault();
+document.addEventListener('DOMContentLoaded', function () {
+    // Login form handler
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function (event) {
+            event.preventDefault();
 
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
-    let userRole = '';
-    if (username === 'admin' && password === 'admin123') {
-        userRole = 'admin';
-    } else if (username === 'instructor' && password === 'inst123') {
-        userRole = 'instructor';
-    } else if (username === 'student' && password === 'std123') {
-        userRole = 'student';
+            let userRole = '';
+            if (username === 'admin' && password === 'admin123') {
+                userRole = 'admin';
+            } else if (username === 'instructor' && password === 'inst123') {
+                userRole = 'instructor';
+            } else if (username === 'student' && password === 'std123') {
+                userRole = 'student';
+            }
+
+            if (userRole) {
+                localStorage.setItem('userRole', userRole);
+                localStorage.setItem('loggedInUser', username);
+                handleLoginRedirect(userRole);
+            } else {
+                alert('Invalid username or password.');
+            }
+        });
     }
 
-    if (userRole) {
-        localStorage.setItem('userRole', userRole);
-        localStorage.setItem('loggedInUser', username);
-        handleLoginRedirect(userRole);
-    } else {
-        alert('Invalid username or password.');
-    }
-});
-
-document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu toggle
     const mobileMenuButton = document.querySelector('.mobile-menu-button');
     const navbarNav = document.querySelector('.navbar-nav');
-
     if (mobileMenuButton && navbarNav) {
-        mobileMenuButton.addEventListener('click', function() {
+        mobileMenuButton.addEventListener('click', function () {
             navbarNav.classList.toggle('open');
         });
     }
 
+    // Set current year in footer
     const yearSpan = document.getElementById('year');
     if (yearSpan) {
         yearSpan.textContent = new Date().getFullYear();
     }
 
+    // Admin dashboard stats
     if (document.body.id === 'admin-dashboard-page') {
         const totalFeedback = 150;
         const averageRating = 4.2;
@@ -62,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (newFeedbackElem) newFeedbackElem.textContent = newFeedback;
     }
 
+    // Instructor dashboard stats
     if (document.body.id === 'instructor-dashboard-page') {
         const totalFeedbackCount = 85;
         const averageRatingValue = 4.5;
@@ -89,31 +96,35 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Feedback history page
     if (window.location.pathname.includes('view_feedback_history.html')) {
         const feedbackList = document.querySelector('.feedback-list');
-        feedbackList.innerHTML = '';
+        if (feedbackList) {
+            feedbackList.innerHTML = '';
 
-        const storedFeedbacks = JSON.parse(localStorage.getItem('allFeedbacks')) || [];
+            const storedFeedbacks = JSON.parse(localStorage.getItem('allFeedbacks')) || [];
 
-        if (storedFeedbacks.length === 0) {
-            feedbackList.innerHTML = '<p>No feedback has been submitted yet.</p>';
-        } else {
-            storedFeedbacks.forEach(feedback => {
-                const li = document.createElement('li');
-                li.className = 'feedback-item';
-                li.innerHTML = `
-                    <h4>${feedback.course} - Rating: ${'★'.repeat(feedback.rating)}${'☆'.repeat(5 - feedback.rating)}</h4>
-                    <p>Submitted on: ${feedback.date || 'N/A'}</p>
-                    <p>${feedback.comments}</p>
-                `;
-                feedbackList.appendChild(li);
-            });
+            if (storedFeedbacks.length === 0) {
+                feedbackList.innerHTML = '<p>No feedback has been submitted yet.</p>';
+            } else {
+                storedFeedbacks.forEach(feedback => {
+                    const li = document.createElement('li');
+                    li.className = 'feedback-item';
+                    li.innerHTML = `
+                        <h4>${feedback.course} - Rating: ${'★'.repeat(feedback.rating)}${'☆'.repeat(5 - feedback.rating)}</h4>
+                        <p>Submitted on: ${feedback.date || 'N/A'}</p>
+                        <p>${feedback.comments}</p>
+                    `;
+                    feedbackList.appendChild(li);
+                });
+            }
         }
     }
 
+    // Feedback form handler
     const feedbackForm = document.getElementById('feedback-form');
     if (feedbackForm) {
-        feedbackForm.addEventListener('submit', function(event) {
+        feedbackForm.addEventListener('submit', function (event) {
             event.preventDefault();
             const course = document.getElementById('course').value;
             const ratingInput = document.querySelector('input[name="rating"]:checked');
@@ -126,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const newFeedback = {
                     user: loggedInUser,
                     course: course,
-                    rating: ratingInput.value,
+                    rating: parseInt(ratingInput.value, 10),
                     comments: comments,
                     date: new Date().toLocaleDateString()
                 };
@@ -136,23 +147,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 localStorage.setItem('allFeedbacks', JSON.stringify(existingFeedbacks));
 
                 console.log('Feedback Submitted:', newFeedback);
-                messageDiv.textContent = 'Feedback submitted successfully! Thank you.';
-                messageDiv.style.color = 'green';
+                if (messageDiv) {
+                    messageDiv.textContent = 'Feedback submitted successfully! Thank you.';
+                    messageDiv.style.color = 'green';
+                }
                 feedbackForm.reset();
-            } else {
+            } else if (messageDiv) {
                 messageDiv.textContent = 'Please fill all fields and give a rating.';
                 messageDiv.style.color = 'red';
             }
         });
     }
-});
 
-document.querySelectorAll('#logout').forEach(button => {
-    button.addEventListener('click', function(event) {
-        event.preventDefault();
-        localStorage.removeItem('userRole');
-        localStorage.removeItem('loggedInUser');
-        alert('You have been logged out.');
-        window.location.href = 'login.html';
+    // Logout buttons
+    document.querySelectorAll('#logout').forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('loggedInUser');
+            alert('You have been logged out.');
+            window.location.href = 'login.html';
+        });
     });
 });

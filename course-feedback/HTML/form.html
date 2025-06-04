@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: aquamarine;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: bold;
+        align-items: center;
+      }
+      .container {
+        display: flex;
+        width: 100%;
+      }
+      .container div {
+        width: 30%;
+        justify-content: space-between;
+        margin: 0 auto;
+      }
+      section {
+        width: 40%;
+        border: 2px solid red;
+        box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.9);
+        margin: 20px auto;
+        height: 50vh;
+        padding: 20px;
+      }
+      section h1 {
+        text-align: center;
+      }
+      label {
+        margin-right: 20px;
+        align-items: center;
+      }
+      input {
+        height: 20px;
+        border: none;
+        outline: none;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dicta
+          modi iste amet culpa vitae officiis beatae. Non blanditiis unde
+          delectus quam. Dignissimos laboriosam, dolore illum pariatur
+          aspernatur odit vitae.
+        </p>
+      </div>
+      <div>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dicta
+          modi iste amet culpa vitae officiis beatae. Non blanditiis unde
+          delectus quam. Dignissimos laboriosam, dolore illum pariatur
+          aspernatur odit vitae.
+        </p>
+      </div>
+      <div>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dicta
+          modi iste amet culpa vitae officiis beatae. Non blanditiis unde
+          delectus quam. Dignissimos laboriosam, dolore illum pariatur
+          aspernatur odit vitae.
+        </p>
+      </div>
+    </div>
+
+    <section>
+      <h1>
+        Regiateration
+        <form action=""></form>
+      </h1>
+      <form action="" method="">
+        <label for="fname">First Name:</label>
+        <input type="text" name="firstname" id="firstname" placeholder="Enter your first name" title="First Name" /><br /><br />
+        <label for="lname">Last Name:</label>
+        <input type="text" name="lastname" id="lastname" placeholder="Enter your last name" title="Last Name" /><br /><br />
+        <label for="email" email>Email:</label>
+        <input type="email" name="email" id="email" /><br /><br />
+        <label for="message">massage:</label>
+        <textarea name="message" id="message"></textarea>
+      </form>
+    </section>
+  </body>
+</html>

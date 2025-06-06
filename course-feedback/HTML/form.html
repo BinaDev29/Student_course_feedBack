@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Registration</title>
     <style>
       body {
         background-color: aquamarine;
@@ -11,81 +11,89 @@
         font-weight: bold;
         align-items: center;
       }
-      .container {
-        display: flex;
-        width: 100%;
-      }
-      .container div {
-        width: 30%;
-        justify-content: space-between;
-        margin: 0 auto;
-      }
       section {
         width: 40%;
         border: 2px solid red;
         box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.9);
         margin: 20px auto;
-        height: 50vh;
         padding: 20px;
+        border-radius: 10px;
       }
       section h1 {
         text-align: center;
       }
       label {
         margin-right: 20px;
-        align-items: center;
+        display: inline-block;
+        width: 120px;
       }
-      input {
-        height: 20px;
+      input, textarea {
+        height: 28px;
         border: none;
         outline: none;
         border-radius: 10px;
+        padding: 4px 10px;
+        font-size: 1rem;
+        margin-bottom: 10px;
+        width: 60%;
+      }
+      textarea {
+        height: 60px;
+        resize: vertical;
+      }
+      .show-password-btn {
+        margin-left: 10px;
+        padding: 4px 10px;
+        border-radius: 6px;
+        border: 1px solid #888;
+        background: #fff;
+        cursor: pointer;
+        font-size: 0.9rem;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dicta
-          modi iste amet culpa vitae officiis beatae. Non blanditiis unde
-          delectus quam. Dignissimos laboriosam, dolore illum pariatur
-          aspernatur odit vitae.
-        </p>
-      </div>
-      <div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dicta
-          modi iste amet culpa vitae officiis beatae. Non blanditiis unde
-          delectus quam. Dignissimos laboriosam, dolore illum pariatur
-          aspernatur odit vitae.
-        </p>
-      </div>
-      <div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dicta
-          modi iste amet culpa vitae officiis beatae. Non blanditiis unde
-          delectus quam. Dignissimos laboriosam, dolore illum pariatur
-          aspernatur odit vitae.
-        </p>
-      </div>
-    </div>
-
     <section>
-      <h1>
-        Regiateration
-        <form action=""></form>
-      </h1>
+      <h1>Registration</h1>
       <form action="" method="">
-        <label for="fname">First Name:</label>
-        <input type="text" name="firstname" id="firstname" placeholder="Enter your first name" title="First Name" /><br /><br />
-        <label for="lname">Last Name:</label>
-        <input type="text" name="lastname" id="lastname" placeholder="Enter your last name" title="Last Name" /><br /><br />
-        <label for="email" email>Email:</label>
+        <label for="firstname">First Name:</label>
+        <input
+          type="text"
+          name="firstname"
+          id="firstname"
+          placeholder="Enter your first name"
+          title="First Name"
+        /><br /><br />
+        <label for="lastname">Last Name:</label>
+        <input
+          type="text"
+          name="lastname"
+          id="lastname"
+          placeholder="Enter your last name"
+          title="Last Name"
+        /><br /><br />
+        <label for="email">Email:</label>
         <input type="email" name="email" id="email" /><br /><br />
-        <label for="message">massage:</label>
-        <textarea name="message" id="message"></textarea>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" />
+        <button type="button" class="show-password-btn" onclick="togglePassword()">Show</button>
+        <br /><br />
+        <label for="message">Message:</label>
+        <textarea name="message" id="message" placeholder="Your message"></textarea>
       </form>
     </section>
+    <script>
+      function togglePassword() {
+        const passwordInput = document.getElementById('password');
+        const btn = document.querySelector('.show-password-btn');
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          btn.textContent = 'Hide';
+        } else {
+          passwordInput.type = 'password';
+          btn.textContent = 'Show';
+        }
+      }
+    </script>
   </body>
 </html>

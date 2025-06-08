@@ -57,21 +57,21 @@
     </footer>
 
     <script>
-      // Set year in footer
+      // Set current year in footer
       document.getElementById("year").textContent = new Date().getFullYear();
 
-      // Fetch all feedbacks from localStorage
+      // Get feedback data from localStorage (or empty array)
       const feedbacks = JSON.parse(localStorage.getItem("allFeedbacks")) || [];
 
-      // DOM elements
+      // DOM references
       const feedbackList = document.getElementById("feedback-list");
       const totalCount = document.getElementById("total-feedback-count");
       const averageRating = document.getElementById("average-rating-value");
 
-      // Show total feedback count
+      // Update total feedback count
       totalCount.textContent = feedbacks.length;
 
-      // Calculate average rating
+      // Calculate and update average rating
       if (feedbacks.length > 0) {
         const totalRating = feedbacks.reduce((sum, fb) => sum + Number(fb.rating), 0);
         const avg = (totalRating / feedbacks.length).toFixed(1);
@@ -80,17 +80,18 @@
         averageRating.textContent = "0.0";
       }
 
-      // Show feedback items
+      // Render feedback details or show no feedback message
       if (feedbacks.length === 0) {
         feedbackList.innerHTML = "<p>No feedback available yet.</p>";
       } else {
+        feedbackList.innerHTML = ""; // clear any existing content
         feedbacks.forEach(fb => {
           const div = document.createElement("div");
           div.className = "feedback-item";
           div.innerHTML = `
             <h3>${fb.course}</h3>
-            <p>Rating: ${fb.rating}</p>
-            <p>Comment: ${fb.comment}</p>
+            <p><strong>Rating:</strong> ${fb.rating}</p>
+            <p><strong>Comment:</strong> ${fb.comment ? fb.comment : "No comments"}</p>
           `;
           feedbackList.appendChild(div);
         });
